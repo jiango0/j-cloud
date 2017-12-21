@@ -1,8 +1,10 @@
 package com.jzc.spring.cloud.entity;
 
-import java.io.Serializable;
+public class Comment {
 
-public class Comment implements Serializable {
+    public Comment() {
+
+    }
 
     public Comment(Long kid, Long infoId, Long topId, Long parentId, String content) {
         this.kid = kid;
