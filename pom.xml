@@ -53,6 +53,7 @@
 	</repositories>
 
 	<modules>
+		<module>service-common</module>
 		<module>service-discovery</module>
 		<module>service-gateway</module>
 		<module>service-event</module>

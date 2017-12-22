@@ -34,6 +34,11 @@
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>com.jzc.spring</groupId>
+      <artifactId>service-event-api</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
