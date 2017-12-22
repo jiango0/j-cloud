@@ -24,11 +24,6 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<dependency>
-				<groupId>com.jzc.spring</groupId>
-				<artifactId>feign-api</artifactId>
-				<version>${project.version}</version>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -60,11 +55,7 @@
 	<modules>
 		<module>service-discovery</module>
 		<module>service-gateway</module>
-		<module>service-consumer</module>
-		<module>service-provider</module>
-		<module>feign-consumer</module>
-		<module>feign-provider</module>
-		<module>feign-api</module>
+		<module>service-event</module>
 	</modules>
 
 </project>
