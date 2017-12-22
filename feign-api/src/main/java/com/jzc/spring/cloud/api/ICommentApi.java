@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 @FeignClient("feign-provider")
+@RequestMapping(value="comment")
 public interface ICommentApi {
 
-    @RequestMapping(value = "comment/{kid}", method = RequestMethod.GET)
+    @RequestMapping(value = "{kid}", method = RequestMethod.GET)
     Comment detail(@PathVariable(value = "kid") Long kid);
 
-    @RequestMapping(value = "comment/list", method = RequestMethod.GET)
+    @RequestMapping(value = "list", method = RequestMethod.GET)
     List<Comment> list();
 
 }
