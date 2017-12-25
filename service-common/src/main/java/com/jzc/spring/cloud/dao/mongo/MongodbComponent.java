@@ -2,8 +2,10 @@ package com.jzc.spring.cloud.dao.mongo;
 
 import com.alibaba.fastjson.JSON;
 import com.jzc.spring.cloud.entity.GenericEntity;
+import com.jzc.spring.cloud.entity.PageList;
 import com.mongodb.WriteResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -11,6 +13,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -19,6 +22,15 @@ public class MongodbComponent<T extends GenericEntity> {
 
     @Autowired
     private MongoTemplate mongoTemplate;
+
+    public long count(Query query, Class<T> t) {
+        return mongoTemplate.count(query, t);
+    }
+
+    public List<T> findPage(Integer currentPage, Integer pageSize, Query query, Class<T> t) {
+        query.skip((currentPage - 1) * pageSize).limit(pageSize);
+        return mongoTemplate.find(query, t);
+    }
 
     public T selectById(Class<T> t, Long id) {
         return mongoTemplate.findOne(new Query(Criteria.where("kid").in(id)), t);
@@ -62,6 +74,12 @@ public class MongodbComponent<T extends GenericEntity> {
         }
 
         return 0;
+    }
+
+//    public List<T> findPage() {}
+
+    public MongoTemplate getMongoTemplate() {
+        return mongoTemplate;
     }
 
 }

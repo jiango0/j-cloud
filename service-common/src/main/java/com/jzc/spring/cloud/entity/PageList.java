@@ -14,6 +14,13 @@ public class PageList<T> implements Serializable {
     /**总页码*/
     private Long count;
 
+    public PageList(Integer currentPage, Integer pageSize, List<T> entities, Long count) {
+        this.currentPage = currentPage;
+        this.pageSize = pageSize;
+        this.entities = entities;
+        this.count = count;
+    }
+
     public Integer getCurrentPage() {
         return currentPage;
     }

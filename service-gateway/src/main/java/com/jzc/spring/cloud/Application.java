@@ -2,6 +2,7 @@ package com.jzc.spring.cloud;
 
 import com.jzc.spring.cloud.interceptor.PostFilter;
 import com.jzc.spring.cloud.interceptor.PreFilter;
+import com.jzc.spring.cloud.interceptor.ResultPostFilter;
 import com.jzc.spring.cloud.interceptor.RouteFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,5 +25,8 @@ public class Application {
 
     @Bean
     public PostFilter getPostFilter() {return new PostFilter();}
+
+    @Bean
+    public ResultPostFilter getResultPostFilter() {return new ResultPostFilter();}
 
 }

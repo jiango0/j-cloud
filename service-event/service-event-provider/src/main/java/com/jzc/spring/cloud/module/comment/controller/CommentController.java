@@ -6,6 +6,7 @@ import com.jzc.spring.cloud.module.comment.dto.CommentDto;
 import com.jzc.spring.cloud.module.comment.entity.Comment;
 import com.jzc.spring.cloud.module.comment.service.CommentService;
 import com.jzc.spring.cloud.module.comment.vo.CommentVo;
+import com.jzc.spring.cloud.web.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,8 +27,8 @@ public class CommentController implements CommentApi {
      * @return
      * */
     @Override
-    public PageList<CommentVo> list(CommentDto commentDto) {
-        return null;
+    public ResultEntity<PageList<CommentVo>> list(CommentDto commentDto) {
+        return ResultEntity.returnSuccess(commentService.list(commentDto));
     }
 
     /**
@@ -36,7 +37,7 @@ public class CommentController implements CommentApi {
      * @return
      * */
     @Override
-    public CommentVo single(@PathVariable Long kid) {
+    public ResultEntity<CommentVo> single(@PathVariable Long kid) {
         return null;
     }
 
@@ -46,8 +47,8 @@ public class CommentController implements CommentApi {
      * @return
      * */
     @Override
-    public Comment single(@RequestBody Comment comment) {
-        return commentService.doComment(comment);
+    public ResultEntity<Comment> single(@RequestBody Comment comment) {
+        return ResultEntity.returnSuccess(commentService.doComment(comment));
     }
 
     /**
@@ -56,7 +57,7 @@ public class CommentController implements CommentApi {
      * @return
      * */
     @Override
-    public Integer del(@RequestBody Comment comment) {
+    public ResultEntity<Integer> del(@RequestBody Comment comment) {
         return null;
     }
 

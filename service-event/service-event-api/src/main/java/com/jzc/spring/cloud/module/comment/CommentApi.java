@@ -4,14 +4,14 @@ import com.jzc.spring.cloud.entity.PageList;
 import com.jzc.spring.cloud.module.comment.dto.CommentDto;
 import com.jzc.spring.cloud.module.comment.entity.Comment;
 import com.jzc.spring.cloud.module.comment.vo.CommentVo;
+import com.jzc.spring.cloud.web.ResultEntity;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(value = "service-event-provider")
-@RequestMapping(value = "comment")
+@FeignClient("service-event-provider")
 public interface CommentApi {
 
     /**
@@ -19,31 +19,31 @@ public interface CommentApi {
      * @param   commentDto
      * @return
      * */
-    @RequestMapping(value = "list", method = RequestMethod.GET)
-    PageList<CommentVo> list(CommentDto commentDto);
+    @RequestMapping(value = "comment/list", method = RequestMethod.GET)
+    ResultEntity<PageList<CommentVo>> list(CommentDto commentDto);
 
     /**
      * 评论详情
      * @param   kid
      * @return
      * */
-    @RequestMapping(value = "{kid}", method = RequestMethod.GET)
-    CommentVo single(@PathVariable(value = "kid") Long kid);
+    @RequestMapping(value = "comment/{kid}", method = RequestMethod.GET)
+    ResultEntity<CommentVo> single(@PathVariable(value = "kid") Long kid);
 
     /**
      * 发布评论
      * @param   comment
      * @return
      * */
-    @RequestMapping(value = "single", method = RequestMethod.POST)
-    Comment single(@RequestBody Comment comment);
+    @RequestMapping(value = "comment/single", method = RequestMethod.POST)
+    ResultEntity<Comment> single(@RequestBody Comment comment);
 
     /**
      * 删除评论
      * @param   comment
      * @return
      * */
-    @RequestMapping(value = "del", method = RequestMethod.POST)
-    Integer del(@RequestBody Comment comment);
+    @RequestMapping(value = "comment/del", method = RequestMethod.POST)
+    ResultEntity<Integer> del(@RequestBody Comment comment);
 
 }
