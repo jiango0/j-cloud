@@ -6,10 +6,13 @@ import com.jzc.spring.cloud.module.comment.dto.CommentDto;
 import com.jzc.spring.cloud.module.comment.entity.Comment;
 import com.jzc.spring.cloud.module.comment.service.CommentService;
 import com.jzc.spring.cloud.module.comment.vo.CommentVo;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -56,6 +59,28 @@ public class CommentServiceImpl implements CommentService {
     }
 
     /**
+     * 评论详情
+     * @param kid
+     * @return
+     * */
+    public CommentVo detail(Long kid) {
+
+        BasicDBObject dbObject = new BasicDBObject();
+        dbObject.put("replyList.kid", kid);
+
+        BasicDBObject fieldsObject = new BasicDBObject();
+        fieldsObject.put("replyList", true);
+
+        Query query = new BasicQuery(dbObject, fieldsObject);
+//        query.getFieldsObject().put("replyList", true);
+//        query.addCriteria(Criteria.where("replyList.kid").is(kid));
+        Comment comment = mongodbComponent.getMongoTemplate().findOne(query, Comment.class);
+        CommentVo vo = new CommentVo();
+        BeanUtils.copyProperties(comment, vo);
+        return vo;
+    }
+
+    /**
      * 发布评论
      * @param   comment
      * @return
@@ -95,6 +120,38 @@ public class CommentServiceImpl implements CommentService {
         }
 
         return comment;
+    }
+
+    /**
+     * 查询是否保存此评论
+     * @param   kid
+     * @param   type
+     * @return
+     * */
+    public boolean exists(Long kid, Integer type) {
+        Query query = new Query();
+        String key = "kid";
+        if(Integer.valueOf(2).equals(type)){
+            key = "replyList.kid";
+        }
+        query.addCriteria(Criteria.where(key).is(kid));
+        return mongodbComponent.exists(query, Comment.class);
+    }
+
+    /**
+     * 删除此评论
+     * @param   kid
+     * @param   type
+     * */
+    public Integer deleteComment(Long kid, Integer type) {
+        Query query = new Query();
+        String key = "kid";
+        if(Integer.valueOf(2).equals(type)){
+            key = "replyList.kid";
+        }
+        query.addCriteria(Criteria.where(key).is(kid));
+        mongodbComponent.deleteByQuery(query, Comment.class);
+        return 1;
     }
 
 }

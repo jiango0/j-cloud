@@ -15,10 +15,32 @@ public interface CommentService {
     PageList<CommentVo> list(CommentDto commentDto);
 
     /**
+     * 评论详情
+     * @param kid
+     * @return
+     * */
+    CommentVo detail(Long kid);
+
+    /**
      * 发布评论
      * @param   comment
      * @return
      * */
     Comment doComment(Comment comment);
+
+    /**
+     * 查询是否保存此评论
+     * @param   kid
+     * @param   type
+     * @return
+     * */
+    boolean exists(Long kid, Integer type);
+
+    /**
+     * 删除此评论
+     * @param   kid
+     * @param   type
+     * */
+    Integer deleteComment(Long kid, Integer type);
 
 }

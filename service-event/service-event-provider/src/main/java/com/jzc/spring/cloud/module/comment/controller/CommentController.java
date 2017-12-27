@@ -38,7 +38,7 @@ public class CommentController implements CommentApi {
      * */
     @Override
     public ResultEntity<CommentVo> single(@PathVariable Long kid) {
-        return null;
+        return ResultEntity.returnSuccess(commentService.detail(kid));
     }
 
     /**
@@ -52,13 +52,23 @@ public class CommentController implements CommentApi {
     }
 
     /**
-     * 删除评论
-     * @param   comment
+     * 查询是否保存此评论
+     * @param   kid
+     * @param   type
      * @return
      * */
-    @Override
-    public ResultEntity<Integer> del(@RequestBody Comment comment) {
-        return null;
+    public ResultEntity<Boolean> exists(Long kid, Integer type) {
+        return ResultEntity.returnSuccess(commentService.exists(kid, type));
+    }
+
+    /**
+     * 删除评论
+     * @param   kid
+     * @param   type
+     * @return
+     * */
+    public ResultEntity<Integer> del(Long kid, Integer type) {
+        return ResultEntity.returnSuccess(commentService.deleteComment(kid, type));
     }
 
 }

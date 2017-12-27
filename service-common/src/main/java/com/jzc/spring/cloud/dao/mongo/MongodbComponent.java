@@ -76,6 +76,14 @@ public class MongodbComponent<T extends GenericEntity> {
         return 0;
     }
 
+    public void deleteByQuery(Query query, Class<T> t) {
+        mongoTemplate.findAndRemove(query, t);
+    }
+
+    public boolean exists(Query query, Class<T> t) {
+        return mongoTemplate.exists(query, t);
+    }
+
 //    public List<T> findPage() {}
 
     public MongoTemplate getMongoTemplate() {

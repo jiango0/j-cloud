@@ -39,11 +39,21 @@ public interface CommentApi {
     ResultEntity<Comment> single(@RequestBody Comment comment);
 
     /**
+     * 查询是否保存此评论
+     * @param   kid
+     * @param   type
+     * @return
+     * */
+    @RequestMapping(value = "comment/exists", method = RequestMethod.GET)
+    ResultEntity<Boolean> exists(Long kid, Integer type);
+
+    /**
      * 删除评论
-     * @param   comment
+     * @param   kid
+     * @param   type
      * @return
      * */
     @RequestMapping(value = "comment/del", method = RequestMethod.POST)
-    ResultEntity<Integer> del(@RequestBody Comment comment);
+    ResultEntity<Integer> del(Long kid, Integer type);
 
 }
